@@ -1,0 +1,14 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ЛР1 — Цветовые модели</title><link rel="stylesheet" href="css/styles.css"></head><body><main class="app">
+<header class="topbar"><div class="title"><h1>Лабораторная работа №1 — Цветовые модели</h1><p>RGB ↔ LAB ↔ CMYK. Все преобразования реализованы вручную без библиотек конвертации.</p></div><div class="preview-panel"><div id="preview" class="preview"></div><div><div class="hex-row"><input id="hex" value="#5078DC" aria-label="HEX"><button id="copy-hex" class="mini-btn">Копировать</button><input id="native-picker" type="color" value="#5078dc" title="Палитра"></div><div id="rgb-label" class="rgb-label"></div></div></div></header>
+<section class="controls">
+<div class="field"><label for="illuminant">Стандарт освещения</label><select id="illuminant"><option value="D65">D65 — средний дневной</option><option value="D50">D50 — тёплый дневной</option><option value="E">E — равноэнергетический</option></select></div>
+<div class="field"><label for="gamut">Выход за gamut sRGB</label><select id="gamut"><option value="clip">Clipping — обрезание</option><option value="scale">Scaling — сжатие цветности</option></select></div>
+<div class="field"><label for="cmyk-alg">Цветоделение CMYK</label><select id="cmyk-alg"><option value="GCR">GCR — Gray Component Replacement</option><option value="UCR">UCR — Under Color Removal</option></select></div>
+<div class="field"><label for="cmyk-strength">Сила замещения K</label><div class="strength"><input id="cmyk-strength" type="range" min="0" max="100" value="100"><span id="strength-label">100%</span></div></div>
+</section>
+<div id="warning" class="warning" hidden></div>
+<section id="models" class="models" aria-label="Цветовые модели"></section>
+<section class="bottom"><article class="info"><h3>Расчёт</h3><p>Для RGB ↔ LAB используется промежуточная модель XYZ. Матрица RGB → XYZ рассчитывается по выбранному стандарту освещения, а обратная матрица получается обратным вычислением.</p><div id="whitepoint" class="whitepoint"></div></article>
+<article class="info"><div class="tests-head"><h3>Автоматические микро-тесты</h3><button id="run-tests" class="button">Запустить снова</button></div><p>Проверяются RGB → LAB, RGB → CMYK, обратимость преобразований и пересчёт матриц. Подробный ход выполнения тестов выводится в консоль браузера (F12).</p><div id="test-results"></div></article></section>
+<p class="foot">Архитектура: Model (чистая математика) → View (DOM) → Controller (синхронизация).</p>
+</main><script src="js/model/color-math.js"></script><script src="js/view/app-view.js"></script><script src="js/controller/app-controller.js"></script><script src="tests/tests.js"></script><script src="js/main.js"></script></body></html>
