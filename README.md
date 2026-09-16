@@ -21,3 +21,6 @@
 - `js/controller/app-controller.js` — обработка действий пользователя и связь View - Model.
 - `tests/tests.js` — тесты.
 - `css/styles.css` — оформление.
+
+## Сайт
+https://knvpmrdsn.github.io/PKG_Lab1_V1_Kondratovich11/
