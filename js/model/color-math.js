@@ -33,8 +33,6 @@
     b: {x: 0.15, y: 0.06}
   });
 
-  // Only chromaticities of reference illuminants are stored. Transition matrices are NOT stored:
-  // they are rebuilt from primary chromaticities + selected white point every time the illuminant changes.
   const ILLUMINANTS = Object.freeze({
     D65: {name:'D65 — средний дневной свет', x:0.31270, y:0.32900},
     D50: {name:'D50 — тёплый дневной свет', x:0.34567, y:0.35850},
@@ -76,8 +74,6 @@
     if (!outOfGamut) return {rgb: rgb.slice(), changed:false};
     if (strategy === 'clip') return {rgb: rgb.map(v=>clamp(v,0,1)), changed:true};
 
-    // Scaling: uniformly compress chroma toward a neutral point. This scales all channel
-    // deviations by one common factor, instead of independently clipping channels.
     const anchor = clamp(0.2126*rgb[0] + 0.7152*rgb[1] + 0.0722*rgb[2], 0, 1);
     let t = 1;
     for (const v of rgb) {
@@ -128,11 +124,9 @@
     const gray=Math.min(c,m,y), s=clamp(strength,0,1);
     let k;
     if (algorithm === 'UCR') {
-      // UCR acts mainly in dark/neutral regions. gray≈1 means a deep shadow.
       const shadowWeight=smoothstep(0.45,0.85,gray);
       k=gray*s*shadowWeight;
     } else {
-      // GCR replaces the common CMY component through the whole tonal range.
       k=gray*s;
     }
     c-=k; m-=k; y-=k;
